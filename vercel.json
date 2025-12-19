@@ -5,24 +5,27 @@
       "SUPABASE_ANON_KEY": "sb_publishable_i9zfqAOv408XDlrxxs6soA_U7nge0nI",
       "ADMIN_ACCESS_KEY": "ALPHA-88"
     }
-    {
-  "key": "Content-Security-Policy",
-  "value": "default-src 'self'; script-src 'self' 'unsafe-inline' blob: https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net; img-src 'self' https://images.unsplash.com data: blob:;"
-}
   },
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
-        "source": "/(.*)",
-        "headers": [
-            {
-                "key": "Content-Security-Policy",
-                "value": "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:;"
-            }
-        ]
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' blob: https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://*.supabase.co https://cdn.jsdelivr.net; img-src 'self' https://images.unsplash.com data: blob:;"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
     }
-]
-    }
-
+  ]
+}
