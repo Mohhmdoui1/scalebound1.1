@@ -100,19 +100,22 @@ nav.nav-scrolled {
     top: 0; 
 }
 
-/* Nav Links - ALWAYS VISIBLE */
+/* NAV LINKS - FIXED: ALWAYS VISIBLE ON DESKTOP */
 #nav-links { 
     transition: all 0.3s ease; 
     opacity: 1;
     visibility: visible;
     display: flex;
-    flex: 1;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    flex: 1;
+    max-width: 100% !important; /* Force visible */
 }
 
-#nav-links a, #nav-links button {
+/* Ensure links are visible */
+#nav-links a, 
+#nav-links button {
     color: rgb(156 163 175); /* text-gray-400 */
     font-size: 0.8125rem; /* text-[13px] */
     font-weight: 600;
@@ -126,17 +129,19 @@ nav.nav-scrolled {
     transition: color 0.2s ease;
 }
 
-#nav-links a:hover, #nav-links button:hover {
+#nav-links a:hover, 
+#nav-links button:hover {
     color: white;
 }
 
+/* When scrolled, links are still visible */
 nav.nav-scrolled #nav-links {
-    opacity: 1;
-    visibility: visible;
-    max-width: none;
-    overflow: visible;
-    pointer-events: auto;
-    margin: 0;
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+    margin: 0 !important;
 }
 
 /* Nav Buttons - ALWAYS VISIBLE */
@@ -261,10 +266,30 @@ nav.nav-scrolled #nav-buttons {
     100% { transform: translateY(100vh); }
 }
 
-/* Responsive adjustments */
-@media (max-width: 767px) {
+/* RESPONSIVE FIXES */
+@media (min-width: 768px) {
+    /* Show links and buttons on desktop */
     #nav-links, #nav-buttons {
-        display: none;
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Hide mobile menu button on desktop */
+    #mobile-menu-button {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Hide desktop links on mobile */
+    #nav-links, #nav-buttons {
+        display: none !important;
+    }
+    
+    /* Show mobile menu button */
+    #mobile-menu-button {
+        display: block !important;
     }
     
     .nav-container {
@@ -277,12 +302,6 @@ nav.nav-scrolled #nav-buttons {
     }
 }
 
-@media (min-width: 768px) {
-    #nav-links, #nav-buttons {
-        display: flex;
-    }
-}
-
 /* Reveal animation for scroll */
 .reveal {
     opacity: 0;
@@ -292,4 +311,19 @@ nav.nav-scrolled #nav-buttons {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Loading spinner */
+.animate-spin-slow {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Ensure all links have cursor pointer */
+a, button {
+    cursor: pointer;
 }
