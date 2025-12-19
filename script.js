@@ -326,4 +326,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+});
+// Debug function to check nav links
+function debugNavLinks() {
+    console.log('Nav links element:', document.getElementById('nav-links'));
+    console.log('Nav links computed style:', window.getComputedStyle(document.getElementById('nav-links')).display);
+    console.log('Nav links visibility:', window.getComputedStyle(document.getElementById('nav-links')).visibility);
+    console.log('Nav links opacity:', window.getComputedStyle(document.getElementById('nav-links')).opacity);
+    console.log('Window width:', window.innerWidth);
+    console.log('Nav scrolled?', document.getElementById('navbar').classList.contains('nav-scrolled'));
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', function() {
+    debugNavLinks();
 });
