@@ -5,6 +5,25 @@ const waitlistFunctions = {
         try {
             console.log('Submitting waitlist application:', formData);
             
+            // Wait for supabaseClient to be ready
+            if (!window.supabaseClient) {
+                await new Promise((resolve) => {
+                    const handler = () => {
+                        window.removeEventListener('supabaseReady', handler);
+                        resolve();
+                    };
+                    window.addEventListener('supabaseReady', handler);
+                    
+                    // Timeout after 5 seconds
+                    setTimeout(resolve, 5000);
+                });
+            }
+            
+            // Double-check it exists
+            if (!window.supabaseClient) {
+                throw new Error('Database connection failed to initialize');
+            }
+            
             const { data, error } = await window.supabaseClient
                 .from('waitlist_applications')
                 .insert([{
@@ -20,7 +39,6 @@ const waitlistFunctions = {
                 .select();
             
             if (error) {
-                // Check if it's a duplicate email error
                 if (error.code === '23505') {
                     return {
                         success: false,
@@ -228,3 +246,4 @@ window.supabaseFunctions = {
 };
 
 console.log('✅ Supabase functions loaded');
+
