@@ -5,15 +5,6 @@ const waitlistFunctions = {
         try {
             console.log('Submitting waitlist application:', formData);
             
-            // Check if supabaseClient is available
-            if (!window.supabaseClient) {
-                console.error('Supabase client not initialized');
-                return {
-                    success: false,
-                    error: 'Database connection not available'
-                };
-            }
-            
             const { data, error } = await window.supabaseClient
                 .from('waitlist_applications')
                 .insert([{
@@ -29,6 +20,7 @@ const waitlistFunctions = {
                 .select();
             
             if (error) {
+                // Check if it's a duplicate email error
                 if (error.code === '23505') {
                     return {
                         success: false,
@@ -236,4 +228,3 @@ window.supabaseFunctions = {
 };
 
 console.log('✅ Supabase functions loaded');
-

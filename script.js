@@ -1,39 +1,7 @@
 // ============================================
 // WAITLIST FUNCTIONS
 // ============================================
-// Wait for all dependencies to load
-function waitForSupabase() {
-    return new Promise((resolve) => {
-        if (window.supabase && window.supabaseClient) {
-            resolve();
-        } else {
-            const checkInterval = setInterval(() => {
-                if (window.supabase && window.supabaseClient) {
-                    clearInterval(checkInterval);
-                    resolve();
-                }
-            }, 100);
-        }
-    });
-}
 
-// Modify your DOMContentLoaded event listener:
-document.addEventListener('DOMContentLoaded', async function() {
-    // Wait for Supabase to be ready
-    await waitForSupabase();
-    
-    console.log('All dependencies loaded:', {
-        supabase: !!window.supabase,
-        supabaseClient: !!window.supabaseClient,
-        supabaseFunctions: !!window.supabaseFunctions
-    });
-    
-    // Initialize Three.js
-    try {
-        initThreeJS();
-    } catch (error) {
-        console.error('Three.js initialization error:', error);
-    }
 async function handleWaitlistSubmit(e) {
     e.preventDefault();
     
@@ -374,4 +342,3 @@ function debugNavLinks() {
 document.addEventListener('DOMContentLoaded', function() {
     debugNavLinks();
 });
-
